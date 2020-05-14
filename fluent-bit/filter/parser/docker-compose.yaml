@@ -4,14 +4,13 @@ services:
   fluent-bit:
     image: fluent/fluent-bit:1.4.4
     container_name: "fluent-bit"
-    ports:
-      - "1883:1883"
     volumes: 
-      - "./mqtt.conf:/fluent-bit/etc/fluent-bit.conf"
+      - "./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf"
+      - "./parsers.conf:/parsers.conf"
     networks:
       - "fluent-bit-net"
 
 networks:
   fluent-bit-net:
     external: false
-    name: "fluent-bit-net"  
+    name: "fluent-bit-net"        
