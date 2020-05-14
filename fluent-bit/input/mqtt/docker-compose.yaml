@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  fluent-bit:
+    image: fluent/fluent-bit:1.4.4
+    command: ["/fluent-bit/bin/fluent-bit", "-c", "/mqtt.conf"]
+    ports:
+      - "1883:1883"
+    volumes: 
+      - "./mqtt.conf:/mqtt.conf"
