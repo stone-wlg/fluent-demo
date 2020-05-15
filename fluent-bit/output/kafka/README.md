@@ -7,6 +7,5 @@ sudo docker-compose ps
 sudo docker-compose logs -f
 sudo docker-compose down
 
-sudo docker-compose exec kafka bash
-kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic test
+sudo docker-compose exec kafka kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic test
 ```
