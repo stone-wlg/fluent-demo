@@ -9,7 +9,9 @@ services:
     volumes: 
       - "./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf"
     networks:
-      - "fluent-bit-net"      
+      - "fluent-bit-net"
+    depends_on:
+      - "kafka"           
 
   zookeeper:
     image: "bitnami/zookeeper:latest"
@@ -39,6 +41,8 @@ services:
       - "KAFKA_ZOOKEEPER_PASSWORD=kafka_password"
     networks:
       - "fluent-bit-net"
+    depends_on:
+      - "zookeeper" 
 
 networks:
   fluent-bit-net:

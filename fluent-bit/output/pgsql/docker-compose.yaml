@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  fluent-bit:
+    image: fluent/fluent-bit:1.4.4
+    container_name: "fluent-bit"
+    volumes:
+      - "./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf"
+    networks:
+      - "fluent-bit-net"
+    depends_on:
+      - "postgresql"
+
+  postgresql:
+    image: "postgres:12.2-alpine"
+    container_name: "postgresql"
+    volumes:
+      - "./init-user-db.sql:/docker-entrypoint-initdb.d/init-user-db.sql"    
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+    networks:
+      - "fluent-bit-net"
+
+networks:
+  fluent-bit-net:
+    external: false
+    name: "fluent-bit-net"
