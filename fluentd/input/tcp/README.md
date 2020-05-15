@@ -1,0 +1,9 @@
+# test
+```sh
+sudo docker-compose up
+sudo docker-compose ps
+sudo docker-compose logs -f
+sudo docker-compose down
+
+nc 0.0.0.0 5170
+```

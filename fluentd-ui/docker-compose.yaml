@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  fluentd-ui:
+    image: stonewlg/fluentd-ui:latest
+    container_name: "fluentd-ui"
+    ports: 
+      - "9292:9292"
+    networks:
+      - "fluentd-ui-net"
+
+networks:
+  fluentd-ui-net:
+    external: false
+    name: "fluentd-ui-net"        

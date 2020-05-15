@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  fluentd:
+    image: fluentd:v1.9.1-1.0
+    container_name: "fluentd"
+    volumes: 
+      - "./fluent.conf:/fluentd/etc/fluent.conf"
+    networks:
+      - "fluentd-net"
+
+networks:
+  fluentd-net:
+    external: false
+    name: "fluentd-net"        

@@ -5,7 +5,7 @@ services:
     image: fluent/fluent-bit:1.4.4
     container_name: "fluent-bit"
     volumes: 
-      - "./dummy.conf:/fluent-bit/etc/fluent-bit.conf"
+      - "./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf"
     networks:
       - "fluent-bit-net"
 
