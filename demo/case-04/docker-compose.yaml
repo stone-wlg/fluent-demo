@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  fluent-bit:
+    image: fluent/fluent-bit:1.4.4
+    container_name: "fluent-bit"
+    ports:
+      - "1883:1883"    
+    volumes: 
+      - "./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf"
+    networks:
+      - "fluent-bit-net"
+    depends_on:
+      - "es"           
+
+  es:
+    image: "elasticsearch:7.6.2"
+    container_name: "es"
+    environment:
+      - "discovery.type=single-node"
+    ulimits:
+      memlock: -1
+    volumes:
+      - "./elasticsearch/data:/usr/share/elasticsearch/data"
+    ports:
+      - "9200:9200"
+    restart: "unless-stopped"
+    networks:
+      - "fluent-bit-net"
+
+  grafana:
+    image: "grafana/grafana:latest"
+    container_name: "grafana"
+    user: "root"
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./grafana/dashboards:/var/lib/grafana/dashboards"
+      - "./grafana/provisioning:/etc/grafana/provisioning"
+    restart: "unless-stopped"
+    networks:
+      - "fluent-bit-net"
+
+networks:
+  fluent-bit-net:
+    external: false
+    name: "fluent-bit-net"      
