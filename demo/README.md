@@ -11,3 +11,7 @@
 
 ## case-04: 
 - fluent bit: input mqtt -> filter parse -> output es
+
+## case-05:
+- fluentd: input mqtt -> filter parse -> output prometheus
+
