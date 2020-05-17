@@ -5,9 +5,10 @@ services:
     image: fluent/fluent-bit:1.4.4
     container_name: "fluent-bit"
     ports:
-      - "1883:1883"    
+      - "5170:5170"    
     volumes: 
       - "./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf"
+      - "./parsers.conf:/parsers.conf"
     networks:
       - "fluent-bit-net"
     depends_on:
