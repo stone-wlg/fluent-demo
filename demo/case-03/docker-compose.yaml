@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  fluent-bit:
+    image: fluent/fluent-bit:1.4.4
+    container_name: "fluent-bit"
+    ports:
+      - "1883:1883"        
+    volumes:
+      - "./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf"
+    networks:
+      - "fluent-bit-net"
+    depends_on:
+      - "timescaledb"
+
+  timescaledb:
+    image: "timescale/timescaledb:latest-pg12"
+    container_name: "timescaledb"
+    volumes:
+      - "./init-user-db.sql:/docker-entrypoint-initdb.d/init-user-db.sql"    
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+    networks:
+      - "fluent-bit-net"
+
+networks:
+  fluent-bit-net:
+    external: false
+    name: "fluent-bit-net"
