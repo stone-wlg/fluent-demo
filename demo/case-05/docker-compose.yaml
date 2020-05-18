@@ -4,10 +4,28 @@ services:
   fluentd:
     image: stonewlg/fluentd:v1.10
     container_name: "fluentd"
+    ports:
+      - "24231:24231"        
     volumes: 
       - "./fluent.conf:/fluentd/etc/fluent.conf"
     networks:
       - "fluentd-net"
+    depends_on: 
+      - "emqx-edge"
+
+  emqx-edge:
+    image: "emqx/emqx-edge:latest"
+    container_name: "emqx-edge"
+    ports:
+      - "1883:1883"
+      - "8083:8083"
+      # - "8883:8883"
+      # - "8084:8084"
+      # - "8080:8080"
+      - "18083:18083"
+    networks:
+      - "fluentd-net"
+    restart: "unless-stopped"
 
 networks:
   fluentd-net:
