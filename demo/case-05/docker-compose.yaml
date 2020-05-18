@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   fluentd:
-    image: stonewlg/fluentd:v1.10
+    image: stonewlg/fluentd-mqtt-io-prometheus:v1.10
     container_name: "fluentd"
     ports:
       - "24231:24231"        

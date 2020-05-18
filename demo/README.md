@@ -13,5 +13,9 @@
 - fluent bit: input mqtt -> filter parse -> output es
 
 ## case-05:
+- emqx-edge: mqtt broker -> fluentd: imput mqtt
 - fluentd: input mqtt -> filter parse -> output prometheus
+
+## case-06:
+- fluentd: input http -> filter parse -> output kafka
 

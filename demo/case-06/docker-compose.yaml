@@ -1,0 +1,46 @@
+version: "3.7"
+
+services:
+  fluentd:
+    image: stonewlg/fluentd-kafka:v1.10
+    container_name: "fluentd"
+    ports:
+      - "9880:9880"        
+    volumes: 
+      - "./fluent.conf:/fluentd/etc/fluent.conf"
+    networks:
+      - "fluentd-net"
+    depends_on: 
+      - "kafka"
+
+  kafka:
+    image: "bitnami/kafka:latest"
+    container_name: "kafka"
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      - "KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181"
+      - "ALLOW_PLAINTEXT_LISTENER=yes"
+      - "KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+      - "KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,PLAINTEXT_HOST://:29092"
+      - "KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092"
+    networks:
+      - "fluentd-net"
+    depends_on:
+      - "zookeeper" 
+
+  zookeeper:
+    image: "bitnami/zookeeper:latest"
+    container_name: "zookeeper"
+    ports:
+      - "2181:2181"
+    environment:
+      - "ALLOW_ANONYMOUS_LOGIN=yes"
+    networks:
+      - "fluentd-net"      
+      
+networks:
+  fluentd-net:
+    external: false
+    name: "fluentd-net"        

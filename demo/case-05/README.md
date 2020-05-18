@@ -7,7 +7,7 @@
 vi ./Dockerfile
 gem install fluent-plugin-mqtt-io
 gem install fluent-plugin-prometheus
-docker build -t stonewlg/fluentd:v1.10 .
+docker build -t stonewlg/fluentd-mqtt-io-prometheus:v1.10 .
 ```
 
 # test
