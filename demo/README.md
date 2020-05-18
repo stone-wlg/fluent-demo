@@ -19,3 +19,6 @@
 ## case-06:
 - fluentd: input http -> filter parse -> output kafka
 
+## case-07:
+- emqx-edge: mqtt broker -> fluentd: imput mqtt
+- fluentd: input mqtt -> filter parse -> output kafka
