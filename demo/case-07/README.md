@@ -1,13 +1,13 @@
 # overview
 - emqx-edge: mqtt broker -> fluentd: imput mqtt
-- fluentd: input mqtt -> filter parse -> output prometheus
+- fluentd: input mqtt -> filter parse -> output kafka
 
 # build docker
 ```bash
 vi ./Dockerfile
 gem install fluent-plugin-mqtt-io
-gem install fluent-plugin-prometheus
-docker build -t stonewlg/fluentd-mqtt-io-prometheus:v1.10 .
+gem install fluent-plugin-kafka
+docker build -t stonewlg/fluentd-mqtt-io-kafka:v1.10 .
 ```
 
 # test
