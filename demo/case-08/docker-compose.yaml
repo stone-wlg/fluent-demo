@@ -38,7 +38,20 @@ services:
     environment:
       - "ALLOW_ANONYMOUS_LOGIN=yes"
     networks:
-      - "fluentd-net"        
+      - "fluentd-net" 
+
+  timescaledb:
+    image: "timescale/timescaledb:latest-pg12"
+    container_name: "timescaledb"
+    volumes:
+      - "./init.sql:/docker-entrypoint-initdb.d/init.sql"    
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+    networks:
+      - "fluent-net"             
 
 networks:
   fluentd-net:
