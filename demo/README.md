@@ -23,3 +23,5 @@
 - emqx: mqtt broker -> fluentd: imput mqtt
 - fluentd: input mqtt -> filter parse -> output kafka
 
+## case-08:
+- fluentd: input kafka -> filter parse -> output timescaledb
