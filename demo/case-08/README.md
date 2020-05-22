@@ -17,7 +17,6 @@ sudo docker-compose restart fluentd
 sudo docker-compose logs -f fluentd
 sudo docker-compose down
 
-sudo docker-compose exec kafka kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic test
-topic: sensor/1
-payload: {"topic":"test","temperature":36.5}
+sudo docker-compose exec kafka kafka-console-producer.sh --broker-list kafka:9092 --topic test
+{"id":"00000000-0000-0000-0000-000000000000","temperature":36.5, "time": 1590127201000}
 ```
