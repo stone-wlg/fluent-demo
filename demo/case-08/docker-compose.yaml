@@ -10,7 +10,7 @@ services:
       - "fluentd-net"
     depends_on: 
       - "kafka"
-      # - "timescaledb"
+      - "timescaledb"
 
   kafka:
     image: "bitnami/kafka:latest"
@@ -39,18 +39,18 @@ services:
     networks:
       - "fluentd-net" 
 
-  # timescaledb:
-  #   image: "timescale/timescaledb:latest-pg12"
-  #   container_name: "timescaledb"
-  #   volumes:
-  #     - "./init.sql:/docker-entrypoint-initdb.d/init.sql"    
-  #   ports:
-  #     - "5432:5432"
-  #   environment:
-  #     - "POSTGRES_USER=postgres"
-  #     - "POSTGRES_PASSWORD=postgres"
-  #   networks:
-  #     - "fluentd-net"             
+  timescaledb:
+    image: "timescale/timescaledb:latest-pg12"
+    container_name: "timescaledb"
+    volumes:
+      - "./init.sql:/docker-entrypoint-initdb.d/init.sql"    
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+    networks:
+      - "fluentd-net"             
 
 networks:
   fluentd-net:
