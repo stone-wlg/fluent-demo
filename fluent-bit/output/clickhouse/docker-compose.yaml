@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  fluent-bit:
+    image: fluent/fluent-bit:1.6.7
+    container_name: "fluent-bit"
+    volumes:
+      - "./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf"
+    networks:
+      - "fluent-bit-net"
+    depends_on: 
+      - "clickhouse"
+
+  clickhouse:
+    image: "yandex/clickhouse-server:20.8.7.15"
+    container_name: "clickhouse"
+    ports:
+      - "8123:8123"
+      - "9100:9000"
+      - "9109:9009"
+    ulimits:
+      nofile: 655360
+      as: -1
+      memlock: -1
+      nproc: -1
+      fsize: -1    
+    restart: "unless-stopped"
+    networks: 
+      - "fluent-bit-net"            
+      
+networks:
+  fluent-bit-net:
+    external: false
+    name: "fluent-bit-net"     
